@@ -1,0 +1,130 @@
+{
+  "name": "immersive-translate-vscode",
+  "displayName": "Immersive Translate - VSCode",
+  "icon": "assets/icon.png",
+  "description": "Immersive translation for VSCode.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "immersive-translate-vscode.toggle",
+        "title": "Immersive Translate: Toggle"
+      },
+      {
+        "command": "immersive-translate-vscode.reset",
+        "title": "Immersive Translate: Reset"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "immersive-translate-vscode.toggle",
+        "key": "ctrl+alt+t",
+        "mac": "ctrl+cmd+t"
+      }
+    ],
+    "configuration": {
+      "title": "Immersive Translate - VSCode",
+      "properties": {
+        "immersive-translate-vscode.provider": {
+          "type": "string",
+          "default": "google-free",
+          "enum": [
+            "google-free",
+            "openai",
+            "deepseek",
+            "gemini",
+            "custom",
+            "bedrock"
+          ],
+          "enumDescriptions": [
+            "Google Translate (Free, no API key required)",
+            "OpenAI (requires API key)",
+            "DeepSeek (requires API key)",
+            "Gemini (requires API key)",
+            "Custom OpenAI-compatible endpoint (requires API key, baseURL, model)",
+            "AWS Bedrock (requires AWS credentials, region, model ID)"
+          ],
+          "description": "Translation provider.",
+          "order": 0
+        },
+        "immersive-translate-vscode.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API key for the selected provider.",
+          "order": 1
+        },
+        "immersive-translate-vscode.baseURL": {
+          "type": "string",
+          "default": "",
+          "description": "Custom API base URL (only for 'custom' provider, or to override preset URL).",
+          "order": 2
+        },
+        "immersive-translate-vscode.model": {
+          "type": "string",
+          "default": "",
+          "description": "Model name (only for 'custom' provider, or to override preset model).",
+          "order": 3
+        },
+        "immersive-translate-vscode.awsRegion": {
+          "type": "string",
+          "default": "",
+          "description": "AWS region for Bedrock (e.g., 'us-east-1').",
+          "order": 4
+        },
+        "immersive-translate-vscode.awsProfile": {
+          "type": "string",
+          "default": "",
+          "description": "AWS profile name for Bedrock SSO (leave empty for default credential chain).",
+          "order": 5
+        },
+        "immersive-translate-vscode.awsBedrockModelId": {
+          "type": "string",
+          "default": "",
+          "description": "AWS Bedrock model ID or inference profile ID.",
+          "order": 6
+        },
+        "immersive-translate-vscode.sourceLanguage": {
+          "type": "string",
+          "default": "en",
+          "description": "Source language code (e.g., 'en', 'auto').",
+          "order": 7
+        },
+        "immersive-translate-vscode.targetLanguage": {
+          "type": "string",
+          "default": "zh-CN",
+          "description": "Target language code (e.g., 'zh-CN', 'en').",
+          "order": 8
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "pnpm run check-types && node esbuild.js",
+    "compile:production": "pnpm run check-types && node esbuild.js --production",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "node --import tsx --test src/test/*.test.ts",
+    "vscode:prepublish": "pnpm run compile:production"
+  },
+  "devDependencies": {
+    "@types/node": "18.x",
+    "@types/vscode": "^1.80.0",
+    "esbuild": "^0.25.0",
+    "eslint": "^9.0.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.1.3",
+    "typescript-eslint": "^8.0.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.1025.0",
+    "@aws-sdk/credential-providers": "^3.1025.0"
+  }
+}
