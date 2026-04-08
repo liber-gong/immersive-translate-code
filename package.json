@@ -2,8 +2,8 @@
   "name": "immersive-translate-code",
   "displayName": "Immersive Translate - Code",
   "icon": "assets/icon.png",
-  "description": "Immersive translation for VSCode.",
-  "version": "0.0.2",
+  "description": "Immersive translation for Visual Studio Code",
+  "version": "0.0.3",
   "publisher": "lanqun520",
   "license": "MIT",
   "repository": {
@@ -41,9 +41,9 @@
       "properties": {
         "immersive-translate-code.provider": {
           "type": "string",
-          "default": "google-free",
+          "default": "google-translate",
           "enum": [
-            "google-free",
+            "google-translate",
             "openai",
             "deepseek",
             "gemini",

@@ -1,10 +1,10 @@
 # Immersive Translate - Code
 
-Immersive translation for VSCode — displays inline translations alongside original text.
+Immersive translation for Visual Studio Code — displays inline translations alongside original text.
 
 ## Get Started
 
-`Cmd+Shift+P` → `Immersive Translate: Toggle` — works out of the box (defaults to google-free, no config needed).
+`Cmd+Shift+P` → `Immersive Translate: Toggle` — works out of the box (defaults to google-translate, no config needed).
 
 Other providers:
 

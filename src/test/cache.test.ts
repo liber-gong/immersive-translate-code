@@ -14,8 +14,8 @@ function createMockStorage(): CacheStorage & { data: Record<string, string> | un
 describe('TranslationCache', () => {
   it('builds cache key from components', () => {
     const cache = new TranslationCache()
-    const key = cache.buildKey('hello', 'google-free', 'en', 'zh-CN')
-    assert.equal(key, 'google-free:en:zh-CN:hello')
+    const key = cache.buildKey('hello', 'google-translate', 'en', 'zh-CN')
+    assert.equal(key, 'google-translate:en:zh-CN:hello')
   })
 
   it('stores and retrieves values', () => {

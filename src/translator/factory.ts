@@ -1,10 +1,10 @@
 import { TranslationService } from './types'
-import { GoogleFreeTranslator } from './google'
+import { GoogleTranslateTranslator } from './google'
 import { OpenAICompatibleTranslator } from './openai-compatible'
 import { BedrockTranslator } from './bedrock'
 import { PRESETS } from './presets'
 
-export type Provider = 'google-free' | 'openai' | 'deepseek' | 'gemini' | 'custom' | 'bedrock';
+export type Provider = 'google-translate' | 'openai' | 'deepseek' | 'gemini' | 'custom' | 'bedrock';
 
 export interface TranslatorConfig {
   provider: Provider;
@@ -17,8 +17,8 @@ export interface TranslatorConfig {
 }
 
 export function createTranslator(config: TranslatorConfig): TranslationService {
-  if (config.provider === 'google-free') {
-    return new GoogleFreeTranslator()
+  if (config.provider === 'google-translate') {
+    return new GoogleTranslateTranslator()
   }
 
   if (config.provider === 'bedrock') {

@@ -11,7 +11,7 @@ const SECTION = 'immersive-translate-code'
 export function getConfig(): TranslateConfig {
   const cfg = vscode.workspace.getConfiguration(SECTION)
   return {
-    provider: cfg.get<Provider>('provider', 'google-free'),
+    provider: cfg.get<Provider>('provider', 'google-translate'),
     apiKey: cfg.get<string>('apiKey', ''),
     baseURL: cfg.get<string>('baseURL', ''),
     model: cfg.get<string>('model', ''),

@@ -1,8 +1,8 @@
 import { TranslationService, TranslationResult } from './types'
 
-const GOOGLE_FREE_URL = 'https://translate.googleapis.com/translate_a/single'
+const GOOGLE_TRANSLATE_URL = 'https://translate.googleapis.com/translate_a/single'
 
-export class GoogleFreeTranslator implements TranslationService {
+export class GoogleTranslateTranslator implements TranslationService {
   async translate(text: string, source: string, target: string): Promise<TranslationResult> {
     const params = new URLSearchParams({
       client: 'gtx',
@@ -12,7 +12,7 @@ export class GoogleFreeTranslator implements TranslationService {
       q: text,
     })
 
-    const response = await fetch(`${GOOGLE_FREE_URL}?${params}`)
+    const response = await fetch(`${GOOGLE_TRANSLATE_URL}?${params}`)
     if (!response.ok) {
       throw new Error(`Google Translate HTTP ${response.status}`)
     }
@@ -28,7 +28,7 @@ export class GoogleFreeTranslator implements TranslationService {
       text: translatedText,
       source: detectedSource,
       target,
-      provider: 'google-free',
+      provider: 'google-translate',
     }
   }
 }

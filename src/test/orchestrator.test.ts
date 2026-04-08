@@ -29,7 +29,7 @@ describe('TranslationOrchestrator', () => {
       translateBatch: async (texts) => texts.map(t => `[translated] ${t}`),
       onUpdate: () => {},
       cache: new TranslationCache(),
-      provider: 'google-free',
+      provider: 'google-translate',
       sourceLanguage: 'en',
       targetLanguage: 'zh-CN',
       ...overrides,
@@ -129,7 +129,7 @@ describe('TranslationOrchestrator', () => {
     const lines = ['Hello', 'World', 'Test']
     const cache = new TranslationCache()
     // Pre-populate cache for line 1 ("World")
-    cache.set(cache.buildKey('World', 'google-free', 'en', 'zh-CN'), '世界')
+    cache.set(cache.buildKey('World', 'google-translate', 'en', 'zh-CN'), '世界')
 
     const batchedTexts: string[][] = []
     const deps = createMockDeps(lines, {
