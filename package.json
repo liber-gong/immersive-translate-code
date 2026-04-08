@@ -4,6 +4,12 @@
   "icon": "assets/icon.png",
   "description": "Immersive translation for VSCode.",
   "version": "0.0.1",
+  "publisher": "lanqun520",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liber-gong/immersive-translate-vscode"
+  },
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -112,11 +118,14 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
     "test": "node --import tsx --test src/test/*.test.ts",
-    "vscode:prepublish": "pnpm run compile:production"
+    "vscode:prepublish": "pnpm run compile:production",
+    "package": "vsce package --no-dependencies",
+    "publish": "vsce publish --no-dependencies"
   },
   "devDependencies": {
     "@types/node": "18.x",
     "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^3.7.1",
     "esbuild": "^0.25.0",
     "eslint": "^9.0.0",
     "tsx": "^4.21.0",
