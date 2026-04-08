@@ -20,3 +20,7 @@ pnpm install
 ```
 
 F5 to launch.
+
+## Acknowledgements
+
+Inspired by [Immersive Translate](https://github.com/immersive-translate/immersive-translate/) and [vscode-immersive-translate-plugin](https://github.com/chengjingtao/vscode-immersive-translate-plugin).
