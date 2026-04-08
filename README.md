@@ -1,4 +1,4 @@
-# Immersive Translate - VSCode
+# Immersive Translate - Code
 
 Immersive translation for VSCode — displays inline translations alongside original text.
 
