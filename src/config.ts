@@ -6,7 +6,7 @@ export interface TranslateConfig extends TranslatorConfig {
   targetLanguage: string;
 }
 
-const SECTION = 'immersive-translate-vscode'
+const SECTION = 'immersive-translate-code'
 
 export function getConfig(): TranslateConfig {
   const cfg = vscode.workspace.getConfiguration(SECTION)

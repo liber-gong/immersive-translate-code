@@ -139,7 +139,7 @@ export function activate(context: vscode.ExtensionContext) {
   decorationManager = new DecorationManager()
 
   const toggleCmd = vscode.commands.registerCommand(
-    'immersive-translate-vscode.toggle',
+    'immersive-translate-code.toggle',
     async () => {
       const editor = vscode.window.activeTextEditor
       if (!editor) {
@@ -155,7 +155,7 @@ export function activate(context: vscode.ExtensionContext) {
   )
 
   const resetCmd = vscode.commands.registerCommand(
-    'immersive-translate-vscode.reset',
+    'immersive-translate-code.reset',
     () => {
       // Stop all active translations first
       for (const [uri, state] of fileStates) {

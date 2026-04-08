@@ -1,6 +1,6 @@
 {
-  "name": "immersive-translate-vscode",
-  "displayName": "Immersive Translate - VSCode",
+  "name": "immersive-translate-code",
+  "displayName": "Immersive Translate - Code",
   "icon": "assets/icon.png",
   "description": "Immersive translation for VSCode.",
   "version": "0.0.1",
@@ -8,7 +8,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/liber-gong/immersive-translate-vscode"
+    "url": "https://github.com/liber-gong/immersive-translate-code"
   },
   "engines": {
     "vscode": "^1.80.0"
@@ -21,25 +21,25 @@
   "contributes": {
     "commands": [
       {
-        "command": "immersive-translate-vscode.toggle",
+        "command": "immersive-translate-code.toggle",
         "title": "Immersive Translate: Toggle"
       },
       {
-        "command": "immersive-translate-vscode.reset",
+        "command": "immersive-translate-code.reset",
         "title": "Immersive Translate: Reset"
       }
     ],
     "keybindings": [
       {
-        "command": "immersive-translate-vscode.toggle",
+        "command": "immersive-translate-code.toggle",
         "key": "ctrl+alt+t",
         "mac": "ctrl+cmd+t"
       }
     ],
     "configuration": {
-      "title": "Immersive Translate - VSCode",
+      "title": "Immersive Translate - Code",
       "properties": {
-        "immersive-translate-vscode.provider": {
+        "immersive-translate-code.provider": {
           "type": "string",
           "default": "google-free",
           "enum": [
@@ -61,49 +61,49 @@
           "description": "Translation provider.",
           "order": 0
         },
-        "immersive-translate-vscode.apiKey": {
+        "immersive-translate-code.apiKey": {
           "type": "string",
           "default": "",
           "description": "API key for the selected provider.",
           "order": 1
         },
-        "immersive-translate-vscode.baseURL": {
+        "immersive-translate-code.baseURL": {
           "type": "string",
           "default": "",
           "description": "Custom API base URL (only for 'custom' provider, or to override preset URL).",
           "order": 2
         },
-        "immersive-translate-vscode.model": {
+        "immersive-translate-code.model": {
           "type": "string",
           "default": "",
           "description": "Model name (only for 'custom' provider, or to override preset model).",
           "order": 3
         },
-        "immersive-translate-vscode.awsRegion": {
+        "immersive-translate-code.awsRegion": {
           "type": "string",
           "default": "",
           "description": "AWS region for Bedrock (e.g., 'us-east-1').",
           "order": 4
         },
-        "immersive-translate-vscode.awsProfile": {
+        "immersive-translate-code.awsProfile": {
           "type": "string",
           "default": "",
           "description": "AWS profile name for Bedrock SSO (leave empty for default credential chain).",
           "order": 5
         },
-        "immersive-translate-vscode.awsBedrockModelId": {
+        "immersive-translate-code.awsBedrockModelId": {
           "type": "string",
           "default": "",
           "description": "AWS Bedrock model ID or inference profile ID.",
           "order": 6
         },
-        "immersive-translate-vscode.sourceLanguage": {
+        "immersive-translate-code.sourceLanguage": {
           "type": "string",
           "default": "en",
           "description": "Source language code (e.g., 'en', 'auto').",
           "order": 7
         },
-        "immersive-translate-vscode.targetLanguage": {
+        "immersive-translate-code.targetLanguage": {
           "type": "string",
           "default": "zh-CN",
           "description": "Target language code (e.g., 'zh-CN', 'en').",
