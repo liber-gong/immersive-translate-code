@@ -87,6 +87,11 @@ export class TranslationOrchestrator {
     this.notify()
   }
 
+  /** True when every line in the document has been processed (translated or skipped). */
+  isComplete(): boolean {
+    return this.done.size >= this.deps.getLineCount()
+  }
+
   reset(): void {
     this.pending = null
     this.running = false

@@ -98,14 +98,19 @@ async function startImmersive(editor: vscode.TextEditor): Promise<void> {
       const eUri = e.textEditor.document.uri.toString()
       const state = fileStates.get(eUri)
       if (!state) { return }
+      // Entire file already translated — nothing more scroll can reveal.
+      if (state.orchestrator.isComplete()) { return }
 
       if (scrollDebounce) { clearTimeout(scrollDebounce) }
       scrollDebounce = setTimeout(async () => {
         scrollDebounce = undefined
+        // Re-check: file may have been stopped during the debounce window.
+        const currentState = fileStates.get(eUri)
+        if (!currentState) { return }
         const range = getViewportRange(e.textEditor)
         if (!range) { return }
 
-        await translateAndPersist(state.orchestrator, range.start, range.end)
+        await translateAndPersist(currentState.orchestrator, range.start, range.end)
       }, 500)
     })
   }

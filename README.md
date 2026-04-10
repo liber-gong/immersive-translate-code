@@ -4,7 +4,7 @@ Immersive translation for Visual Studio Code — displays inline translations al
 
 ## Get Started
 
-`Cmd+Shift+P` → `Immersive Translate: Toggle` — works out of the box (defaults to google-translate, no config needed).
+`Cmd+Shift+P` → `Immersive Translate: Toggle` (or `Ctrl+Cmd+T` on Mac / `Ctrl+Alt+T` on Win/Linux) — works out of the box (defaults to google-translate, no config needed).
 
 Other providers:
 

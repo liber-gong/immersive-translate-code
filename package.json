@@ -3,7 +3,7 @@
   "displayName": "Immersive Translate - Code",
   "icon": "assets/icon.png",
   "description": "Immersive translation for Visual Studio Code",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "lanqun520",
   "license": "MIT",
   "repository": {

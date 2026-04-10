@@ -169,6 +169,25 @@ describe('TranslationOrchestrator', () => {
     assert.equal(last.decorations.size, 4)
   })
 
+  it('isComplete reflects whether every line has been processed', async () => {
+    const lines = ['Hello', 'World', '---', 'Test']
+    const orch = new TranslationOrchestrator(createMockDeps(lines))
+
+    assert.equal(orch.isComplete(), false)
+
+    // Partial range — not yet complete
+    await orch.translateRange(0, 2)
+    assert.equal(orch.isComplete(), false)
+
+    // Full file covered (including skipped '---' line, which still enters `done`)
+    await orch.translateRange(2, 4)
+    assert.equal(orch.isComplete(), true)
+
+    // Reset clears done set
+    orch.reset()
+    assert.equal(orch.isComplete(), false)
+  })
+
   it('reapply triggers onUpdate with current decorations', async () => {
     const lines = ['Hello world', 'Another line']
     const updates: Array<{ decorations: Map<number, string>; loading: Set<number> }> = []
