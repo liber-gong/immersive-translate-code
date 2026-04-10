@@ -5,6 +5,7 @@ import { parseNumberedResult } from './translator/parse'
 import { TranslationCache, CacheStorage } from './cache'
 import { TranslationOrchestrator, OrchestratorDeps } from './orchestrator'
 import { DecorationManager } from './decorator'
+import { initLogger, log } from './logger'
 
 interface FileState {
   orchestrator: TranslationOrchestrator;
@@ -27,6 +28,7 @@ function createVSCodeCacheStorage(context: vscode.ExtensionContext): CacheStorag
 function buildDeps(editor: vscode.TextEditor): OrchestratorDeps {
   const config = getConfig()
   const { provider, sourceLanguage: src, targetLanguage: tgt } = config
+  log('ext', `creating translator: provider=${provider} region=${config.awsRegion} model=${config.awsBedrockModelId}`)
   const translator = createTranslator(config)
   const uri = editor.document.uri.toString()
 
@@ -38,15 +40,15 @@ function buildDeps(editor: vscode.TextEditor): OrchestratorDeps {
         const merged = texts.map((t, i) => `[${i}] ${t}`).join('\n')
         try {
           const result = await translator.translateBatch(merged, src, tgt)
-          console.log(`[ext] LLM batch response:\n${result.text}`)
+          log('ext', `LLM batch response:\n${result.text}`)
           const parsed = parseNumberedResult(result.text, texts.length)
-          console.log(`[ext] parse result: ${parsed ? 'OK' : 'FAILED'} (expected ${texts.length} lines)`)
+          log('ext', `parse result: ${parsed ? 'OK' : 'FAILED'} (expected ${texts.length} lines)`)
           if (parsed) return parsed
-        } catch (err) { console.log(`[ext] batch call failed:`, err) }
-        console.log(`[ext] falling back to line-by-line`)
+        } catch (err) { log('ext', `batch call failed:`, err as Error) }
+        log('ext', `falling back to line-by-line`)
       }
       return Promise.all(texts.map(t =>
-        translator.translate(t, src, tgt).then(r => r.text).catch(() => ''),
+        translator.translate(t, src, tgt).then(r => r.text).catch((err) => { log('ext', 'single translate failed:', err as Error); return '' }),
       ))
     },
     onUpdate: (decorations, loading) => {
@@ -140,6 +142,9 @@ function stopImmersive(editor: vscode.TextEditor): void {
 }
 
 export function activate(context: vscode.ExtensionContext) {
+  const outputChannel = initLogger()
+  log('ext', 'extension activating')
+
   cache = new TranslationCache(createVSCodeCacheStorage(context))
   decorationManager = new DecorationManager()
 
@@ -188,7 +193,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
   })
 
-  context.subscriptions.push(toggleCmd, resetCmd, tabChangeListener, decorationManager)
+  context.subscriptions.push(toggleCmd, resetCmd, tabChangeListener, decorationManager, outputChannel)
 }
 
 export function deactivate() {

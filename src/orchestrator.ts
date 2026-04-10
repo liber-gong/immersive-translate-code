@@ -9,6 +9,7 @@
 
 import { TranslationCache } from './cache'
 import { buildSkipLines, isTranslatable } from './filter'
+import { log } from './logger'
 
 export interface OrchestratorDeps {
   getLineText(lineNum: number): string;
@@ -129,11 +130,11 @@ export class TranslationOrchestrator {
     }
 
     if (toTranslate.length === 0) {
-      console.log(`[orch] processRange(${start}, ${end}): nothing to translate`)
+      log('orch',`processRange(${start}, ${end}): nothing to translate`)
       return
     }
 
-    console.log(`[orch] processRange(${start}, ${end}): ${toTranslate.length} lines to translate`)
+    log('orch',`processRange(${start}, ${end}): ${toTranslate.length} lines to translate`)
 
     // Show loading state
     for (const ln of toTranslate) { this.loading.add(ln) }
@@ -144,7 +145,7 @@ export class TranslationOrchestrator {
     for (const batch of batches) {
       // Yield to new viewport if user scrolled
       if (this.pending) {
-        console.log(`[orch] pending detected, yielding. done=${this.done.size} decorations=${this.decorations.size}`)
+        log('orch',`pending detected, yielding. done=${this.done.size} decorations=${this.decorations.size}`)
         this.clearLoading(toTranslate)
         return
       }
@@ -175,13 +176,13 @@ export class TranslationOrchestrator {
       return true
     })
 
-    console.log(`[orch] batch lines [${lineNums.join(',')}]: ${entries.length - uncached.length} cached, ${uncached.length} to translate`)
+    log('orch',`batch lines [${lineNums.join(',')}]: ${entries.length - uncached.length} cached, ${uncached.length} to translate`)
 
     if (uncached.length > 0) {
       const results = await this.deps.translateBatch(uncached.map(e => e.text))
-        .catch((err) => { console.log(`[orch] translateBatch error:`, err); return uncached.map(() => '') })
+        .catch((err) => { log('orch',`translateBatch error:`, err); return uncached.map(() => '') })
 
-      console.log(`[orch] batch results: [${results.map(r => r.slice(0, 20)).join(', ')}]`)
+      log('orch',`batch results: [${results.map(r => r.slice(0, 20)).join(', ')}]`)
 
       uncached.forEach((e, i) => {
         const translated = results[i] ?? ''
@@ -194,7 +195,7 @@ export class TranslationOrchestrator {
       })
     }
 
-    console.log(`[orch] notify: decorations=${this.decorations.size} loading=${this.loading.size}`)
+    log('orch',`notify: decorations=${this.decorations.size} loading=${this.loading.size}`)
     this.notify()
   }
 
