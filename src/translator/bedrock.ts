@@ -26,7 +26,7 @@ export class BedrockTranslator extends BaseTranslator {
       max_tokens: 4096,
       system: systemPrompt,
       messages: [{ role: 'user', content: text }],
-      temperature: 0.3,
+      temperature: 0,
     })
 
     log('bedrock', `invoking model=${this.opts.modelId} text=${text.slice(0, 80)}...`)
